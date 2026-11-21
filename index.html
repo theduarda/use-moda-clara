@@ -649,22 +649,38 @@ function finalizar(){
   if(!f){ toast('UF inválida. Confira o endereço.'); return; }
   frete = {...f,cep:digits(cli.cep)};
   const lines = cartLines(), sub = subtotal(), total = sub+f.valor;
+  const sep = '──────────────────────────';
+  const formatItem = i => {
+    const specs = [i.tam ? `Tam: ${i.tam}` : '', i.cor ? `Cor: ${i.cor}` : ''].filter(Boolean).join(' | ');
+    return `🛍️ *${i.qtd}x ${i.p.nome}*${specs ? `\n   ▫️ ${specs}` : ''}\n   ▫️ Valor: ${brl(i.p.preco*i.qtd)}`;
+  };
+
   const msg = [
-    `🛍️ *NOVO PEDIDO — ${L.nome}*`,'',
-    '*Itens*',
-    ...lines.map(i=>`• ${i.qtd}x ${i.p.nome}${i.tam?` | Tam: ${i.tam}`:''}${i.cor?` | Cor: ${i.cor}`:''} — ${brl(i.p.preco*i.qtd)}`),'',
-    `Subtotal: ${brl(sub)}`,
-    `Frete (${f.regiao}, ${f.prazo}): ${f.valor===0?'Grátis':brl(f.valor)}`,
-    `*TOTAL: ${brl(total)}*`,'',
-    '*Cliente*',
-    `Nome: ${cli.nome}`,`WhatsApp: ${cli.tel}`,'',
-    '*Endereço de entrega*',
-    `${cli.rua}, ${cli.num}${cli.comp?' - '+cli.comp:''}`,
-    `${cli.bairro?cli.bairro+' - ':''}${cli.cidade}/${cli.uf}`,
-    cli.cep?`CEP: ${maskCEP(cli.cep)}`:'' ,'',
-    `Pagamento: ${cli.pag}`,
-    cli.obs?`Obs.: ${cli.obs}`:''
-  ].filter((l,i,a)=>!(l===''&&a[i-1]==='')).join('\n').trim();
+    `🌸 *NOVO PEDIDO — ${L.nome.toUpperCase()}* 🌸`,
+    sep,
+    '📦 *ITENS DO PEDIDO*',
+    lines.map(formatItem).join('\n\n'),
+    sep,
+    '💳 *PAGAMENTO & VALORES*',
+    `• Subtotal: ${brl(sub)}`,
+    `• Frete (${f.regiao} • ${f.prazo}): ${f.valor===0 ? 'Grátis' : brl(f.valor)}`,
+    `• *TOTAL: ${brl(total)}*`,
+    `• Forma de pagamento: *${cli.pag || 'A combinar'}*`,
+    sep,
+    '👤 *DADOS DA CLIENTE*',
+    `• Nome: ${cli.nome}`,
+    `• WhatsApp: ${cli.tel}`,
+    sep,
+    '📍 *ENDEREÇO DE ENTREGA*',
+    `• Rua: ${cli.rua}, nº ${cli.num}`,
+    cli.comp ? `• Complemento: ${cli.comp}` : '',
+    cli.bairro ? `• Bairro: ${cli.bairro}` : '',
+    `• Cidade/UF: ${cli.cidade}/${cli.uf}`,
+    cli.cep ? `• CEP: ${maskCEP(cli.cep)}` : '',
+    cli.obs ? `${sep}\n📝 *OBSERVAÇÕES:*\n${cli.obs}` : '',
+    sep,
+    '_Pedido gerado pelo site_'
+  ].filter(Boolean).join('\n');
   const url = waLink(msg);
   const w = window.open(url,'_blank','noopener');
   if(!w) location.href = url;
