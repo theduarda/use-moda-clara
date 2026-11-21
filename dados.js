@@ -6,7 +6,7 @@
 window.LOJA = {
   "nome": "Use Moda Clara",
   "slogan": "Moda praia com leveza, brilho e atitude",
-  "whatsapp": "5583999999999",
+  "whatsapp": "558391836572",
   "instagram": "usemodaclara",
   "textos": {
     "heroTitulo": "Sua praia, seu estilo.",
