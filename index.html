@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Use Moda Clara — Moda Praia</title>
+<meta name="description" content="Biquínis, maiôs, vestidos e saídas de praia. Enviamos para todo o Brasil.">
+<link rel="icon" href="logo.png">
+<meta name="theme-color" content="#EEE9DC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#EEE9DC; --cream2:#F6F2E8; --ink:#5a3d2f; --brown:#6e4b3a; --sand:#b99a78;
+  --rose1:#d9a3a0; --rose2:#b9707a; --rose3:#9a5560; --white:#fffdf8;
+  --grad:linear-gradient(135deg,#e2b0ab 0%,#b9707a 55%,#9a5560 100%);
+  --shadow:0 18px 50px -20px rgba(110,75,58,.35);
+  --r:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.1}
+.wrap{width:min(1180px,92vw);margin-inline:auto}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- logo ---------- */
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
+.logo-mark{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.1rem;letter-spacing:-.06em;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+.logo-mark i{font-style:normal;margin-left:-.28em;opacity:.9}
+.logo img{height:46px;width:auto}
+.logo-name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.logo-name small{display:block;font-family:'Jost';font-weight:400;letter-spacing:.3em;font-size:.55rem;margin-top:.3rem;color:var(--sand)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(238,233,220,.82);border-bottom:1px solid rgba(185,154,120,.25);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 10px 30px -20px rgba(110,75,58,.5)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+nav{display:flex;gap:.3rem;align-items:center}
+nav a{position:relative;text-decoration:none;color:var(--brown);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;padding:.55rem .8rem;border-radius:99px;transition:.25s;white-space:nowrap}
+nav a:hover{background:rgba(185,112,122,.1)}
+nav a.on{background:var(--grad);color:#fff;box-shadow:0 8px 20px -10px var(--rose3)}
+.actions{display:flex;gap:.4rem;align-items:center}
+.cart-btn{position:relative;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--white);box-shadow:0 6px 18px -8px rgba(110,75,58,.4);transition:transform .25s}
+.cart-btn:hover{transform:translateY(-2px)}
+.cart-btn svg{width:22px;height:22px;stroke:var(--brown)}
+.badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:99px;background:var(--rose2);color:#fff;font-size:.72rem;display:grid;place-items:center;padding:0 5px;transform:scale(0);transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+.badge.show{transform:scale(1)}
+.burger{display:none;width:46px;height:46px;border-radius:50%;background:var(--white);place-items:center;box-shadow:0 6px 18px -8px rgba(110,75,58,.4)}
+.burger span{display:block;width:18px;height:2px;background:var(--brown);position:relative;transition:.3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--brown);transition:.3s}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger.open span{background:transparent}.burger.open span::before{top:0;transform:rotate(45deg)}.burger.open span::after{top:0;transform:rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:calc(100svh - 72px);display:grid;align-items:center;overflow:hidden;padding:3rem 0 7rem}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:float 14s ease-in-out infinite}
+.blob.a{width:420px;height:420px;background:#e8bcb6;top:-80px;right:-80px}
+.blob.b{width:340px;height:340px;background:#d9c3a0;bottom:60px;left:-100px;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.12)}}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;position:relative;z-index:2}
+.eyebrow{display:inline-flex;gap:.6rem;align-items:center;font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sand);margin-bottom:1.2rem}
+.eyebrow::before{content:"";width:38px;height:1px;background:var(--sand)}
+.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);margin-bottom:1.2rem}
+.hero h1 .w{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.08em;display:inline-block;opacity:0;transform:translateY(40px) rotate(3deg);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero p.lead{font-size:1.12rem;max-width:34rem;color:var(--brown);opacity:0;animation:rise .9s .5s forwards}
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem;opacity:0;animation:rise .9s .7s forwards}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 1.7rem;border-radius:99px;font-weight:500;letter-spacing:.04em;text-decoration:none;transition:.3s;position:relative;overflow:hidden}
+.btn.primary{background:var(--grad);color:#fff;box-shadow:0 14px 30px -14px var(--rose3)}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:.7s}
+.btn.primary:hover::after{transform:translateX(120%)}
+.btn.primary:hover{transform:translateY(-3px)}
+.btn.ghost{border:1.5px solid var(--sand);color:var(--brown)}
+.btn.ghost:hover{background:var(--white);transform:translateY(-3px)}
+.btn.wa{background:#25a55f;color:#fff;box-shadow:0 14px 30px -14px #25a55f}
+.btn.wa:hover{transform:translateY(-3px);background:#1f9553}
+.hero-art{position:relative;aspect-ratio:1/1.05;max-width:460px;margin-inline:auto;width:100%}
+.arch{position:absolute;inset:0;border-radius:999px 999px 28px 28px;background:var(--grad);display:grid;place-items:center;box-shadow:var(--shadow);animation:rise 1.1s .3s both;overflow:hidden}
+.arch::before{content:"";position:absolute;inset:14px;border-radius:inherit;border:1px solid rgba(255,255,255,.55)}
+.arch .mc{font-family:'Cormorant Garamond',serif;color:#fff8ee;font-size:clamp(7rem,18vw,11rem);font-weight:500;letter-spacing:-.08em;text-shadow:0 10px 30px rgba(90,40,50,.35);position:relative;z-index:2;animation:bob 6s ease-in-out infinite}
+.arch .mc i{font-style:normal;margin-left:-.3em;opacity:.85}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.shell{position:absolute;width:84px;height:84px;right:-6px;bottom:20px;z-index:3;filter:drop-shadow(0 12px 18px rgba(110,75,58,.35));animation:bob 5s ease-in-out infinite reverse}
+.chip{position:absolute;left:-10px;top:22%;z-index:3;background:var(--white);padding:.7rem 1rem;border-radius:16px;box-shadow:var(--shadow);font-size:.8rem;animation:bob 7s ease-in-out infinite;max-width:160px}
+.chip b{display:block;font-family:'Cormorant Garamond';font-size:1.3rem}
+.waves{position:absolute;left:0;right:0;bottom:-2px;height:110px;z-index:1}
+.waves svg{width:200%;height:100%;animation:wave 14s linear infinite}
+.waves svg:nth-child(2){position:absolute;inset:0;animation-duration:22s;animation-direction:reverse;opacity:.6}
+@keyframes wave{to{transform:translateX(-50%)}}
+
+/* ---------- seções ---------- */
+section{padding:5rem 0}
+.sec-head{text-align:center;margin-bottom:3rem}
+.sec-head h2{font-size:clamp(2rem,4.5vw,3.2rem)}
+.sec-head .eyebrow{justify-content:center}
+.sec-head .eyebrow::after{content:"";width:38px;height:1px;background:var(--sand)}
+.divider{display:flex;align-items:center;gap:1rem;justify-content:center;color:var(--sand);margin:1rem auto 0;max-width:260px}
+.divider::before,.divider::after{content:"";height:1px;background:var(--sand);flex:1;opacity:.6}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.cat{position:relative;aspect-ratio:3/4;border-radius:var(--r);overflow:hidden;text-decoration:none;color:#fff;display:flex;align-items:flex-end;padding:1.3rem;box-shadow:var(--shadow);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.cat:hover{transform:translateY(-8px) rotate(-.6deg)}
+.cat::before{content:"";position:absolute;inset:0;background:var(--g);transition:transform .8s}
+.cat:hover::before{transform:scale(1.12)}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(60,30,25,.55),transparent 55%)}
+.cat span{position:relative;z-index:2;font-family:'Cormorant Garamond';font-size:1.7rem;font-weight:600;line-height:1}
+.cat small{display:block;font-family:'Jost';font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-top:.4rem;opacity:.9}
+.cat .ico{position:absolute;top:1rem;right:1.1rem;z-index:2;font-size:2rem;opacity:.9;transition:.5s}
+.cat:hover .ico{transform:rotate(20deg) scale(1.2)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.6rem}
+.card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px -18px rgba(110,75,58,.5);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;cursor:pointer;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.thumb{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--cream2)}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.card:hover .thumb img{transform:scale(1.08)}
+.tag{position:absolute;top:.8rem;left:.8rem;background:var(--white);color:var(--rose3);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px;font-weight:500}
+.tag.out{background:var(--ink);color:#fff}
+.quick{position:absolute;left:.8rem;right:.8rem;bottom:.8rem;background:var(--grad);color:#fff;border-radius:99px;padding:.7rem;text-align:center;font-size:.85rem;letter-spacing:.06em;transform:translateY(130%);transition:.4s}
+.card:hover .quick{transform:none}
+.info{padding:1.1rem 1.2rem 1.3rem}
+.info h3{font-size:1.35rem;margin-bottom:.3rem}
+.price{font-weight:500;color:var(--rose3);font-size:1.1rem}
+.price small{color:var(--sand);font-weight:300;font-size:.8rem;margin-left:.4rem}
+.dots{display:flex;gap:.3rem;margin-top:.6rem}
+.dots i{font-style:normal;font-size:.72rem;border:1px solid rgba(185,154,120,.5);color:var(--brown);border-radius:6px;padding:.05rem .45rem}
+
+.page-head{padding:3.5rem 0 1rem;text-align:center}
+.page-head h1{font-size:clamp(2.6rem,6vw,4.4rem)}
+.page-head p{color:var(--brown);margin-top:.6rem}
+.filters{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin:1.6rem 0 2.4rem}
+.filters button{padding:.5rem 1.1rem;border-radius:99px;border:1px solid rgba(185,154,120,.6);font-size:.85rem;transition:.25s;color:var(--brown)}
+.filters button.on,.filters button:hover{background:var(--grad);color:#fff;border-color:transparent}
+.empty{text-align:center;padding:3rem;color:var(--sand)}
+
+/* sobre */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.about-art{position:relative;aspect-ratio:1;border-radius:var(--r);background:var(--grad);display:grid;place-items:center;overflow:hidden;box-shadow:var(--shadow)}
+.about-art::before,.about-art::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.4);animation:ring 6s ease-out infinite}
+.about-art::before{width:40%;aspect-ratio:1}.about-art::after{width:40%;aspect-ratio:1;animation-delay:-3s}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(3);opacity:0}}
+.about-art b{font-family:'Cormorant Garamond';font-size:clamp(4rem,10vw,7rem);color:#fff8ee;font-weight:500;letter-spacing:-.06em;position:relative;z-index:2}
+.about-art b i{font-style:normal;margin-left:-.3em;opacity:.85}
+.about-art.logo-card{background:var(--cream2);border:1px solid rgba(185,154,120,.35)}.about-art.logo-card::before,.about-art.logo-card::after{display:none}.about-art.logo-card img{width:86%;height:auto;border-radius:12px;position:relative;z-index:2}
+.about h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem}
+.about p{color:var(--brown);margin-bottom:1.4rem;font-size:1.05rem}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.perk{background:var(--white);border-radius:16px;padding:1rem 1.1rem;font-size:.9rem;box-shadow:0 8px 24px -16px rgba(110,75,58,.5)}
+.perk b{display:block;font-family:'Cormorant Garamond';font-size:1.15rem}
+.contact{background:var(--white);border-radius:32px;padding:3rem;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:var(--grad);opacity:.12;right:-80px;top:-80px}
+.contact h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:.8rem}
+.contact ul{list-style:none;display:grid;gap:.9rem;margin:1.2rem 0 1.6rem}
+.contact li{display:flex;gap:.8rem;align-items:flex-start}
+.contact li span{width:38px;height:38px;border-radius:50%;background:var(--cream);display:grid;place-items:center;flex:none}
+
+footer{padding:2.5rem 0 3rem;text-align:center;color:var(--sand);font-size:.85rem;border-top:1px solid rgba(185,154,120,.3)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- overlays ---------- */
+.scrim{position:fixed;inset:0;background:rgba(60,35,28,.45);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.35s;z-index:80}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100vw);background:var(--cream);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px -20px rgba(0,0,0,.4)}
+.drawer.on{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.4rem;border-bottom:1px solid rgba(185,154,120,.3)}
+.d-head h3{font-size:1.7rem}
+.x{width:40px;height:40px;border-radius:50%;background:var(--white);display:grid;place-items:center;font-size:1.3rem;line-height:1}
+.d-body{flex:1;overflow:auto;padding:1.2rem 1.4rem;overscroll-behavior:contain}
+.item{display:grid;grid-template-columns:72px 1fr auto;gap:.9rem;padding:.8rem;background:var(--white);border-radius:16px;margin-bottom:.8rem;align-items:center;animation:rise .5s both}
+.item img{width:72px;height:88px;object-fit:cover;border-radius:10px}
+.item h4{font-family:'Cormorant Garamond';font-size:1.15rem;line-height:1.1}
+.item small{color:var(--sand);display:block}
+.qty{display:inline-flex;align-items:center;gap:.5rem;margin-top:.4rem;background:var(--cream);border-radius:99px;padding:.15rem}
+.qty button{width:26px;height:26px;border-radius:50%;background:var(--white)}
+.rm{color:var(--rose3);font-size:.78rem;text-decoration:underline}
+.box{background:var(--white);border-radius:18px;padding:1rem 1.1rem;margin:1rem 0}
+.box h4{font-family:'Cormorant Garamond';font-size:1.25rem;margin-bottom:.6rem}
+.row{display:flex;gap:.6rem}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);padding:.75rem .9rem;border:1.5px solid rgba(185,154,120,.45);background:var(--cream2);border-radius:12px;outline:0;transition:.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--rose2);box-shadow:0 0 0 4px rgba(185,112,122,.15)}
+.f{display:grid;gap:.6rem}
+.f label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sand);display:grid;gap:.25rem}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.f3{display:grid;grid-template-columns:1fr 90px;gap:.6rem}
+.mini{padding:.75rem 1rem;border-radius:12px;background:var(--brown);color:#fff;white-space:nowrap}
+.ship-res{margin-top:.7rem;font-size:.92rem;color:var(--brown)}
+.ship-res.err{color:#b23b4a}
+.sum{display:grid;gap:.35rem;font-size:.95rem}
+.sum div{display:flex;justify-content:space-between}
+.sum .tot{font-family:'Cormorant Garamond';font-size:1.7rem;border-top:1px dashed var(--sand);padding-top:.5rem;margin-top:.3rem}
+.d-foot{padding:1rem 1.4rem calc(1rem + env(safe-area-inset-bottom));border-top:1px solid rgba(185,154,120,.3);background:var(--cream2)}
+.d-foot .btn{width:100%}
+.d-foot small{display:block;text-align:center;margin-top:.5rem;color:var(--sand)}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--sand)}
+.cart-empty div{font-size:3rem}
+
+.modal{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:1rem;pointer-events:none}
+.modal.on{pointer-events:auto}
+.m-card{background:var(--cream);border-radius:28px;width:min(940px,100%);max-height:92svh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;transform:translateY(40px) scale(.96);opacity:0;transition:.45s cubic-bezier(.2,.8,.2,1);position:relative}
+.modal.on .m-card{transform:none;opacity:1}
+.m-card .x{position:absolute;top:1rem;right:1rem;z-index:3}
+.gal{background:var(--cream2);position:relative}
+.gal .main{aspect-ratio:4/5;width:100%;object-fit:cover}
+.gal .thumbs{display:flex;gap:.5rem;padding:.7rem;overflow:auto}
+.gal .thumbs img{width:56px;height:68px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;opacity:.7}
+.gal .thumbs img.on{border-color:var(--rose2);opacity:1}
+.m-info{padding:2rem 2rem 2rem;display:flex;flex-direction:column;gap:1rem}
+.m-info h2{font-size:2.3rem}
+.m-info .price{font-size:1.5rem}
+.opts{display:flex;gap:.45rem;flex-wrap:wrap}
+.opts button{min-width:44px;padding:.5rem .9rem;border-radius:99px;border:1.5px solid rgba(185,154,120,.55);font-size:.9rem;transition:.2s}
+.opts button.on{background:var(--grad);color:#fff;border-color:transparent;transform:scale(1.05)}
+.lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-bottom:.4rem}
+
+.toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-160px);background:var(--ink);color:#fff;padding:.85rem 1.4rem;border-radius:99px;z-index:120;transition:.5s cubic-bezier(.2,1.2,.3,1);font-size:.92rem;box-shadow:var(--shadow);max-width:92vw}
+.toast.on{transform:translate(-50%,0)}
+.wa-float{position:fixed;left:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25a55f;z-index:40;display:grid;place-items:center;box-shadow:0 12px 26px -8px #25a55f;animation:pulse 2.4s infinite}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,165,95,.5)}70%,100%{box-shadow:0 0 0 18px rgba(37,165,95,0)}}
+
+/* ---------- responsivo ---------- */
+@media(max-width:980px){
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .hero-grid,.about,.contact{grid-template-columns:1fr}
+  .hero-art{max-width:340px;order:-1}
+  .hero{padding-top:1.5rem}
+  .m-card{grid-template-columns:1fr}
+  .gal .main{aspect-ratio:1/1}
+  nav{position:fixed;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--cream);padding:1rem 4vw 1.5rem;gap:.2rem;border-bottom:1px solid rgba(185,154,120,.3);transform:translateY(-130%);transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:-1;box-shadow:0 30px 40px -30px rgba(0,0,0,.3)}
+  nav.open{transform:none}
+  nav a{padding:.9rem 1rem;font-size:.95rem}
+  .burger{display:grid}
+}
+@media(max-width:560px){
+  section{padding:3.5rem 0}
+  .grid{grid-template-columns:repeat(2,1fr);gap:.8rem}
+  .info{padding:.8rem .8rem 1rem}.info h3{font-size:1.1rem}
+  .quick{display:none}
+  .contact{padding:1.8rem 1.4rem}
+  .perks{grid-template-columns:1fr}
+  .logo-name{font-size:.95rem}
+  .m-info{padding:1.4rem}
+  .chip{display:none}
+  .f2{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap bar">
+    <a class="logo" href="#/inicio" aria-label="Início">
+      <span id="logoMark"></span>
+      <span class="logo-name">Use Moda Clara<small>MODA PRAIA</small></span>
+    </a>
+    <nav id="nav"></nav>
+    <div class="actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span class="badge" id="badge">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Use Moda Clara · Moda praia · Enviamos para todo o Brasil</div>
+</footer>
+
+<a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 2.4a10.6 10.6 0 1 1-5.4 19.7l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 0 1 16 5.4zm-4 5.2c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4.1 6.4 5.6 3.2 1.2 3.8 1 4.5.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.4-.3-.8-.5s-2.2-1.1-2.5-1.2c-.4-.1-.6-.2-.9.2-.2.4-1 1.2-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.3.1-.5 0-.7l-1.2-2.9c-.3-.7-.6-.6-.9-.6z"/></svg>
+</a>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Carrinho"></aside>
+<div class="modal" id="modal"></div>
+<div class="toast" id="toast"></div>
+
+<script src="dados.js"></script>
+<script>
+(function(){
+'use strict';
+const L = window.LOJA;
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl = n => Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const digits = s => String(s||'').replace(/\D/g,'');
+
+/* ---------- logo ---------- */
+$('#logoMark').innerHTML = '<span class="logo-mark">M<i>C</i></span>';
+/* ---------- estado ---------- */
+const LS = 'umc_cart_v1', LC = 'umc_cli_v1';
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem(LS)||'[]'); }catch(e){}
+let cli = {};
+try{ cli = JSON.parse(localStorage.getItem(LC)||'{}'); }catch(e){}
+let frete = null; // {uf, regiao, valor, prazo, cep}
+const save = ()=>{ try{ localStorage.setItem(LS,JSON.stringify(cart)); localStorage.setItem(LC,JSON.stringify(cli)); }catch(e){} };
+
+const cats = L.categorias;
+const prod = id => L.produtos.find(p=>p.id===id);
+const placeholder = (p)=>{
+  const hues = {biquinis:['#e2b0ab','#b9707a'],maios:['#d9c3a0','#b99a78'],vestidos:['#e8c9c0','#c98a85'],saidas:['#efe2c8','#d2b48c']};
+  const [a,b] = hues[p.categoria]||['#e2b0ab','#b9707a'];
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${a}'/><stop offset='1' stop-color='${b}'/></linearGradient></defs><rect width='400' height='500' fill='url(#g)'/><text x='200' y='285' font-family='Georgia,serif' font-size='150' fill='white' fill-opacity='.85' text-anchor='middle' letter-spacing='-12'>MC</text></svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+};
+const imgs = p => (p.imagens&&p.imagens.length)? p.imagens : [placeholder(p)];
+
+/* ---------- nav ---------- */
+function buildNav(){
+  const links = [['#/inicio','Início'], ...cats.map(c=>['#/cat/'+c.id,c.nome]), ['#/contato','Contato']];
+  $('#nav').innerHTML = links.map(([h,t])=>`<a href="${h}" data-h="${h}">${esc(t)}</a>`).join('');
+}
+function setActive(h){
+  $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.h===h));
+  $('#nav').classList.remove('open'); $('#burger').classList.remove('open');
+}
+$('#burger').onclick = ()=>{ $('#nav').classList.toggle('open'); $('#burger').classList.toggle('open'); };
+window.addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>8),{passive:true});
+
+/* ---------- views ---------- */
+const cardHTML = p => `
+<article class="card rv" data-id="${esc(p.id)}" tabindex="0" role="button" aria-label="${esc(p.nome)}">
+  <div class="thumb"><img loading="lazy" src="${imgs(p)[0]}" alt="${esc(p.nome)}">
+    ${p.esgotado?'<span class="tag out">Esgotado</span>':(p.destaque?'<span class="tag">Destaque</span>':'')}
+    <span class="quick">Ver detalhes</span></div>
+  <div class="info"><h3>${esc(p.nome)}</h3>
+    <div class="price">${brl(p.preco)}<small>${esc(cats.find(c=>c.id===p.categoria)?.nome||'')}</small></div>
+    <div class="dots">${(p.tamanhos||[]).map(t=>`<i>${esc(t)}</i>`).join('')}</div></div>
+</article>`;
+
+const waLink = (txt)=>`https://wa.me/${digits(L.whatsapp)}${txt?'?text='+encodeURIComponent(txt):''}`;
+
+function sobreHTML(){
+  const t = L.textos;
+  return `
+  <section><div class="wrap about">
+    <div class="about-art rv logo-card"><img src="logo.png" alt="Logo Use Moda Clara" onerror="this.outerHTML='<b>M<i>C</i></b>'"></div>
+    <div class="rv">
+      <div class="eyebrow">Nossa história</div>
+      <h2>${esc(t.sobreTitulo)}</h2>
+      <p>${esc(t.sobreTexto)}</p>
+      <div class="perks">
+        <div class="perk"><b>Envio para todo o Brasil</b>Calcule o frete pelo CEP</div>
+        <div class="perk"><b>Atendimento no WhatsApp</b>Pedido fácil e rápido</div>
+        <div class="perk"><b>Peças selecionadas</b>Qualidade e caimento</div>
+        <div class="perk"><b>Frete grátis</b>${L.frete.gratisAcima>0?'acima de '+brl(L.frete.gratisAcima):'consulte condições'}</div>
+      </div>
+    </div></div></section>`;
+}
+function contatoHTML(){
+  const t = L.textos;
+  return `
+  <section id="contato"><div class="wrap"><div class="contact rv">
+    <div><div class="eyebrow">Fale com a gente</div><h2>Contato</h2>
+      <p style="color:var(--brown)">Tem dúvida sobre tamanho, prazo ou disponibilidade? Chame no WhatsApp, respondemos com todo carinho.</p>
+      <ul>
+        <li><span>💬</span><div><b>WhatsApp</b><br>${esc(fmtPhone(L.whatsapp))}</div></li>
+        ${L.instagram?`<li><span>📸</span><div><b>Instagram</b><br><a href="https://instagram.com/${esc(L.instagram.replace('@',''))}" target="_blank" rel="noopener" style="color:var(--rose3)">@${esc(L.instagram.replace('@',''))}</a></div></li>`:''}
+        <li><span>🕘</span><div><b>Horário</b><br>${esc(t.horario)}</div></li>
+        <li><span>📍</span><div><b>Atendimento</b><br>${esc(t.endereco)}</div></li>
+      </ul>
+      <a class="btn wa" target="_blank" rel="noopener" href="${waLink('Olá! Vim pelo site da Use Moda Clara e gostaria de mais informações.')}">Chamar no WhatsApp</a>
+    </div>
+    <div style="display:grid;place-items:center"><div class="hero-art" style="max-width:300px"><div class="arch" style="animation:none"><div class="mc" style="font-size:6.5rem">M<i>C</i></div></div></div></div>
+  </div></div></section>`;
+}
+function fmtPhone(n){ const d=digits(n); if(d.length>=12) return `+${d.slice(0,2)} (${d.slice(2,4)}) ${d.slice(4,-4)}-${d.slice(-4)}`; return n; }
+
+const shellSVG = `<svg class="shell" viewBox="0 0 64 64" fill="none" stroke="#b99a78" stroke-width="2" stroke-linecap="round"><path fill="#f6e9d6" d="M32 8c-14 0-24 12-24 24 0 8 6 16 16 16h16c10 0 16-8 16-16 0-12-10-24-24-24z"/><path d="M32 8v40M32 48 14 22M32 48 50 22M32 48 8 36M32 48l24-12"/><path fill="#e8cfb0" stroke="none" d="M22 48h20l-3 8H25z"/></svg>`;
+const waveSVG = (c,o)=>`<svg viewBox="0 0 1440 110" preserveAspectRatio="none"><path fill="${c}" fill-opacity="${o}" d="M0 60c120-40 240-40 360 0s240 40 360 0 240-40 360 0 240 40 360 0v50H0z"/></svg>`;
+
+function viewInicio(){
+  const t = L.textos;
+  const words = t.heroTitulo.split(' ').map((w,i)=>`<span class="w" style="animation-delay:${.1+i*.12}s">${esc(w)}</span>`).join(' ');
+  const dest = L.produtos.filter(p=>p.destaque).slice(0,8);
+  const gradients = ['linear-gradient(135deg,#e8bcb6,#b9707a)','linear-gradient(135deg,#e6d2b0,#b99a78)','linear-gradient(135deg,#efc9bf,#c98a85)','linear-gradient(135deg,#f0e3c8,#c9a97c)'];
+  const icons = ['👙','🩱','👗','🌴'];
+  return `
+  <div class="hero">
+    <div class="blob a"></div><div class="blob b"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">${esc(L.slogan)}</div>
+        <h1 class="grad-text">${words}</h1>
+        <p class="lead">${esc(t.heroTexto)}</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#/cat/${esc(cats[0]?.id||'')}">Ver coleção</a>
+          <a class="btn ghost" href="#/contato">Fale conosco</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="arch"><div class="mc">M<i>C</i></div></div>
+        ${shellSVG}
+        <div class="chip"><b>Todo o Brasil</b>Frete calculado pelo CEP</div>
+      </div>
+    </div>
+    <div class="waves">${waveSVG('#e4d6bd',1)}${waveSVG('#f6f2e8',1)}</div>
+  </div>
+  <section style="background:var(--cream2);padding-top:3rem"><div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Coleções</div><h2>Escolha seu verão</h2><div class="divider">🐚</div></div>
+    <div class="cats">${cats.map((c,i)=>`
+      <a class="cat rv" href="#/cat/${esc(c.id)}" style="--g:${gradients[i%4]};transition-delay:${i*.08}s">
+        <span class="ico">${icons[i%4]}</span>
+        <span>${esc(c.nome)}<small>${L.produtos.filter(p=>p.categoria===c.id).length} peças</small></span></a>`).join('')}
+    </div></div></section>
+  ${dest.length?`<section><div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Queridinhas</div><h2>Peças em destaque</h2><div class="divider">🐚</div></div>
+    <div class="grid">${dest.map(cardHTML).join('')}</div></div></section>`:''}
+  ${sobreHTML()}
+  ${contatoHTML()}`;
+}
+function viewCat(id){
+  const c = cats.find(x=>x.id===id);
+  if(!c) return viewInicio();
+  const list = L.produtos.filter(p=>p.categoria===id);
+  return `
+  <div class="wrap">
+    <div class="page-head"><div class="eyebrow">Coleção</div><h1 class="grad-text">${esc(c.nome)}</h1><p>${list.length} ${list.length===1?'peça':'peças'} disponíveis</p></div>
+    <div class="filters" id="filters"><button class="on" data-f="all">Todas</button><button data-f="dest">Destaques</button><button data-f="asc">Menor preço</button><button data-f="desc">Maior preço</button></div>
+    <div class="grid" id="plist">${list.length?list.map(cardHTML).join(''):'<p class="empty">Em breve novidades por aqui 🐚</p>'}</div>
+  </div><div style="height:4rem"></div>`;
+}
+function viewContato(){
+  return `<div class="wrap"><div class="page-head"><div class="eyebrow">Atendimento</div><h1 class="grad-text">Contato</h1></div></div>${contatoHTML()}${sobreHTML()}`;
+}
+
+/* ---------- router ---------- */
+function route(){
+  const h = location.hash || '#/inicio';
+  const app = $('#app');
+  let html, active = h;
+  if(h.startsWith('#/cat/')) html = viewCat(h.slice(6));
+  else if(h==='#/contato') html = viewContato();
+  else { html = viewInicio(); active='#/inicio'; }
+  app.innerHTML = html;
+  setActive(active);
+  window.scrollTo({top:0,behavior:'instant'});
+  bindView(h);
+  reveal();
+}
+function bindView(h){
+  $$('.card').forEach(c=>{
+    const open = ()=>openProduct(c.dataset.id);
+    c.onclick = open; c.onkeydown = e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } };
+  });
+  const fl = $('#filters');
+  if(fl){
+    const id = h.slice(6);
+    fl.onclick = e=>{
+      const b = e.target.closest('button'); if(!b) return;
+      $$('button',fl).forEach(x=>x.classList.toggle('on',x===b));
+      let list = L.produtos.filter(p=>p.categoria===id);
+      if(b.dataset.f==='dest') list = list.filter(p=>p.destaque);
+      if(b.dataset.f==='asc') list.sort((a,b)=>a.preco-b.preco);
+      if(b.dataset.f==='desc') list.sort((a,b)=>b.preco-a.preco);
+      $('#plist').innerHTML = list.length? list.map(cardHTML).join('') : '<p class="empty">Nenhuma peça nesse filtro.</p>';
+      bindView(h); reveal();
+    };
+  }
+}
+let io;
+function reveal(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  $$('.rv').forEach((el,i)=>{ if(!el.style.transitionDelay && el.classList.contains('card')) el.style.transitionDelay=((i%4)*.07)+'s'; io.observe(el); });
+}
+window.addEventListener('hashchange',route);
+
+/* ---------- produto (modal) ---------- */
+let sel = {};
+function openProduct(id){
+  const p = prod(id); if(!p) return;
+  sel = {id, tam:(p.tamanhos||[])[0]||'', cor:(p.cores||[])[0]||'', qtd:1, img:0};
+  const list = imgs(p);
+  const m = $('#modal');
+  m.innerHTML = `
+  <div class="m-card" role="dialog" aria-modal="true" aria-label="${esc(p.nome)}">
+    <button class="x" id="mx" aria-label="Fechar">×</button>
+    <div class="gal"><img class="main" id="mimg" src="${list[0]}" alt="${esc(p.nome)}">
+      ${list.length>1?`<div class="thumbs">${list.map((s,i)=>`<img src="${s}" data-i="${i}" class="${i===0?'on':''}" alt="">`).join('')}</div>`:''}</div>
+    <div class="m-info">
+      <div><div class="eyebrow" style="margin-bottom:.5rem">${esc(cats.find(c=>c.id===p.categoria)?.nome||'')}</div><h2>${esc(p.nome)}</h2></div>
+      <div class="price">${brl(p.preco)}</div>
+      <p style="color:var(--brown)">${esc(p.descricao)}</p>
+      ${(p.tamanhos||[]).length?`<div><div class="lbl">Tamanho</div><div class="opts" id="o-tam">${p.tamanhos.map((t,i)=>`<button data-v="${esc(t)}" class="${i===0?'on':''}">${esc(t)}</button>`).join('')}</div></div>`:''}
+      ${(p.cores||[]).length?`<div><div class="lbl">Cor</div><div class="opts" id="o-cor">${p.cores.map((t,i)=>`<button data-v="${esc(t)}" class="${i===0?'on':''}">${esc(t)}</button>`).join('')}</div></div>`:''}
+      <div><div class="lbl">Quantidade</div><div class="qty" style="margin:0"><button id="qm">−</button><b id="qn" style="min-width:24px;text-align:center">1</b><button id="qp">+</button></div></div>
+      <button class="btn primary" id="madd" ${p.esgotado?'disabled style="opacity:.5;cursor:not-allowed"':''}>${p.esgotado?'Esgotado':'Adicionar ao carrinho'}</button>
+    </div>
+  </div>`;
+  m.classList.add('on'); $('#scrim').classList.add('on'); scrimFor='modal';
+  document.body.style.overflow='hidden';
+  $('#mx').onclick = closeAll;
+  $$('.thumbs img',m).forEach(t=>t.onclick=()=>{ $('#mimg').src=list[t.dataset.i]; $$('.thumbs img',m).forEach(x=>x.classList.toggle('on',x===t)); });
+  ['tam','cor'].forEach(k=>{ const o=$('#o-'+k); if(o) o.onclick=e=>{ const b=e.target.closest('button'); if(!b) return; sel[k]=b.dataset.v; $$('button',o).forEach(x=>x.classList.toggle('on',x===b)); }; });
+  $('#qm').onclick=()=>{ sel.qtd=Math.max(1,sel.qtd-1); $('#qn').textContent=sel.qtd; };
+  $('#qp').onclick=()=>{ sel.qtd=Math.min(20,sel.qtd+1); $('#qn').textContent=sel.qtd; };
+  $('#madd').onclick=()=>{ if(p.esgotado) return; addToCart(p,sel.tam,sel.cor,sel.qtd); closeAll(); toast('Adicionado ao carrinho ✨'); setTimeout(openCart,350); };
+}
+m_click();
+function m_click(){ $('#modal').addEventListener('click',e=>{ if(e.target.id==='modal') closeAll(); }); }
+
+/* ---------- carrinho ---------- */
+function addToCart(p,tam,cor,qtd){
+  const key = [p.id,tam,cor].join('|');
+  const it = cart.find(i=>i.key===key);
+  if(it) it.qtd += qtd; else cart.push({key,id:p.id,tam,cor,qtd});
+  frete = frete ? frete : null;
+  save(); updBadge();
+}
+const cartLines = ()=>cart.map(i=>({...i,p:prod(i.id)})).filter(i=>i.p);
+const subtotal = ()=>cartLines().reduce((s,i)=>s+i.p.preco*i.qtd,0);
+const qtdTotal = ()=>cartLines().reduce((s,i)=>s+i.qtd,0);
+function updBadge(){ const n=qtdTotal(); const b=$('#badge'); b.textContent=n; b.classList.toggle('show',n>0); }
+
+const UFREG = {PB:'Local (PB)',AL:'Nordeste',BA:'Nordeste',CE:'Nordeste',MA:'Nordeste',PE:'Nordeste',PI:'Nordeste',RN:'Nordeste',SE:'Nordeste',
+  ES:'Sudeste',MG:'Sudeste',RJ:'Sudeste',SP:'Sudeste',PR:'Sul',RS:'Sul',SC:'Sul',DF:'Centro-Oeste',GO:'Centro-Oeste',MT:'Centro-Oeste',MS:'Centro-Oeste',
+  AC:'Norte',AP:'Norte',AM:'Norte',PA:'Norte',RO:'Norte',RR:'Norte',TO:'Norte'};
+function regiaoDe(uf){
+  const origem = L.frete.origemUF||'PB';
+  if(uf===origem && L.frete.regioes['Local ('+origem+')']) return 'Local ('+origem+')';
+  let r = UFREG[uf]; if(!r) return null;
+  if(r.startsWith('Local') && origem!=='PB') r='Nordeste';
+  return L.frete.regioes[r]? r : null;
+}
+function calcFrete(uf){
+  const reg = regiaoDe(uf); if(!reg) return null;
+  const cfg = L.frete.regioes[reg];
+  const extra = Math.max(0,qtdTotal()-1)*(L.frete.adicionalPorPeca||0);
+  let valor = cfg.valor + extra;
+  const gratis = L.frete.gratisAcima>0 && subtotal()>=L.frete.gratisAcima;
+  if(gratis) valor = 0;
+  return {uf,regiao:reg,valor,prazo:cfg.prazo,gratis};
+}
+
+async function buscaCEP(cep){
+  cep = digits(cep);
+  if(cep.length!==8) throw new Error('Digite um CEP com 8 números.');
+  const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+  if(!r.ok) throw new Error('Não foi possível consultar o CEP agora.');
+  const d = await r.json();
+  if(d.erro) throw new Error('CEP não encontrado.');
+  return d;
+}
+const maskCEP = v=>{ v=digits(v).slice(0,8); return v.length>5? v.slice(0,5)+'-'+v.slice(5):v; };
+const maskTel = v=>{ v=digits(v).slice(0,11); if(v.length>6) return `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`; if(v.length>2) return `(${v.slice(0,2)}) ${v.slice(2)}`; return v; };
+
+function renderCart(keepFocus){
+  const d = $('#drawer');
+  const lines = cartLines();
+  const sub = subtotal();
+  if(frete){ const nf = calcFrete(frete.uf); if(nf) frete = {...nf,cep:frete.cep}; }
+  const total = sub + (frete? frete.valor : 0);
+  const faltaGratis = L.frete.gratisAcima>0 ? Math.max(0,L.frete.gratisAcima-sub) : 0;
+  d.innerHTML = `
+  <div class="d-head"><h3>Seu carrinho</h3><button class="x" id="dx" aria-label="Fechar">×</button></div>
+  <div class="d-body">
+    ${lines.length? lines.map((i,idx)=>`
+      <div class="item" style="animation-delay:${idx*.05}s">
+        <img src="${imgs(i.p)[0]}" alt="">
+        <div><h4>${esc(i.p.nome)}</h4><small>${[i.tam&&'Tam. '+esc(i.tam),i.cor&&esc(i.cor)].filter(Boolean).join(' · ')}</small>
+          <div class="qty"><button data-a="m" data-k="${esc(i.key)}">−</button><b>${i.qtd}</b><button data-a="p" data-k="${esc(i.key)}">+</button></div></div>
+        <div style="text-align:right"><b>${brl(i.p.preco*i.qtd)}</b><br><button class="rm" data-a="r" data-k="${esc(i.key)}">remover</button></div>
+      </div>`).join('') : `<div class="cart-empty"><div>🐚</div><p>Seu carrinho está vazio.</p><br><a class="btn primary" href="#/inicio" id="goshop">Ver peças</a></div>`}
+    ${lines.length?`
+    ${faltaGratis>0?`<p style="font-size:.88rem;color:var(--brown);text-align:center">Faltam <b>${brl(faltaGratis)}</b> para ganhar <b>frete grátis</b> 🎁</p>`:(L.frete.gratisAcima>0?'<p style="font-size:.88rem;text-align:center;color:#2f8f57"><b>Você ganhou frete grátis!</b> 🎉</p>':'')}
+    <div class="box"><h4>Calcular frete</h4>
+      <div class="row"><input id="cep" inputmode="numeric" placeholder="Seu CEP" value="${esc(maskCEP(cli.cep||''))}" maxlength="9"><button class="mini" id="calc">Calcular</button></div>
+      <div class="ship-res" id="ship">${frete?`📦 <b>${esc(frete.regiao)}</b> (${esc(frete.uf)}): ${frete.valor===0?'<b>Grátis</b>':brl(frete.valor)} · ${esc(frete.prazo)}`:''}</div>
+    </div>
+    <div class="box"><h4>Seus dados</h4>
+      <div class="f">
+        <div class="f2"><label>Nome completo<input id="c-nome" autocomplete="name" value="${esc(cli.nome||'')}"></label>
+        <label>WhatsApp<input id="c-tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" value="${esc(cli.tel||'')}"></label></div>
+        <div class="f3"><label>Rua<input id="c-rua" autocomplete="address-line1" value="${esc(cli.rua||'')}"></label><label>Nº<input id="c-num" value="${esc(cli.num||'')}"></label></div>
+        <div class="f2"><label>Complemento<input id="c-comp" value="${esc(cli.comp||'')}"></label><label>Bairro<input id="c-bairro" value="${esc(cli.bairro||'')}"></label></div>
+        <div class="f3"><label>Cidade<input id="c-cidade" value="${esc(cli.cidade||'')}"></label><label>UF<input id="c-uf" maxlength="2" style="text-transform:uppercase" value="${esc(cli.uf||'')}"></label></div>
+        <label>Forma de pagamento
+          <select id="c-pag">${['Pix','Cartão de crédito','Cartão de débito','A combinar'].map(o=>`<option ${cli.pag===o?'selected':''}>${o}</option>`).join('')}</select></label>
+        <label>Observações<textarea id="c-obs" rows="2" placeholder="Ex.: prefiro entrega à tarde">${esc(cli.obs||'')}</textarea></label>
+      </div></div>
+    <div class="box"><div class="sum">
+      <div><span>Subtotal (${qtdTotal()} ${qtdTotal()===1?'peça':'peças'})</span><span>${brl(sub)}</span></div>
+      <div><span>Frete</span><span>${frete? (frete.valor===0?'Grátis':brl(frete.valor)):'calcule acima'}</span></div>
+      <div class="tot"><span>Total</span><span>${brl(total)}</span></div></div></div>`:''}
+  </div>
+  ${lines.length?`<div class="d-foot"><button class="btn wa" id="finish"><svg width="20" height="20" viewBox="0 0 32 32" fill="#fff"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm-4 7.6c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4.1 6.4 5.6 3.2 1.2 3.8 1 4.5.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.4-.3-.8-.5s-2.2-1.1-2.5-1.2c-.4-.1-.6-.2-.9.2-.2.4-1 1.2-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.3.1-.5 0-.7l-1.2-2.9c-.3-.7-.6-.6-.9-.6z"/></svg>Finalizar pelo WhatsApp</button><small>Você será direcionada(o) ao WhatsApp com o pedido pronto para enviar.</small></div>`:''}`;
+  bindCart();
+}
+function readForm(){
+  const g = id=>($('#'+id)||{}).value||'';
+  cli = {...cli, cep:g('cep')||cli.cep, nome:g('c-nome'),tel:g('c-tel'),rua:g('c-rua'),num:g('c-num'),comp:g('c-comp'),bairro:g('c-bairro'),cidade:g('c-cidade'),uf:g('c-uf').toUpperCase(),pag:g('c-pag'),obs:g('c-obs')};
+  save();
+}
+function bindCart(){
+  $('#dx').onclick = closeAll;
+  const gs = $('#goshop'); if(gs) gs.onclick = closeAll;
+  $$('#drawer [data-a]').forEach(b=>b.onclick=()=>{
+    readForm();
+    const it = cart.find(i=>i.key===b.dataset.k); if(!it) return;
+    if(b.dataset.a==='p') it.qtd = Math.min(20,it.qtd+1);
+    if(b.dataset.a==='m') it.qtd = Math.max(1,it.qtd-1);
+    if(b.dataset.a==='r') cart = cart.filter(i=>i!==it);
+    save(); updBadge(); renderCart();
+  });
+  const cep = $('#cep'); if(!cep) return;
+  cep.oninput = ()=>{ cep.value = maskCEP(cep.value); };
+  cep.onkeydown = e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#calc').click(); } };
+  $('#c-tel').oninput = e=>{ e.target.value = maskTel(e.target.value); };
+  $('#c-uf').oninput = e=>{ e.target.value = e.target.value.replace(/[^a-zA-Z]/g,'').toUpperCase(); };
+  $('#c-uf').onchange = ()=>{ const uf=$('#c-uf').value.toUpperCase(); const f=calcFrete(uf); if(f && (!frete||frete.uf!==uf)){ readForm(); frete={...f,cep:digits(cli.cep)}; renderCart(); } };
+  $('#calc').onclick = async ()=>{
+    const out = $('#ship'); const btn = $('#calc');
+    out.className='ship-res'; out.textContent='Consultando…'; btn.disabled=true;
+    try{
+      const d = await buscaCEP(cep.value);
+      const f = calcFrete(d.uf);
+      if(!f) throw new Error('Ainda não entregamos nessa região. Fale conosco no WhatsApp.');
+      readForm();
+      cli = {...cli, cep:digits(cep.value), rua:d.logradouro||cli.rua, bairro:d.bairro||cli.bairro, cidade:d.localidade, uf:d.uf};
+      frete = {...f,cep:digits(cep.value)}; save(); renderCart();
+    }catch(err){
+      out.className='ship-res err';
+      out.textContent = err.message==='Failed to fetch' ? 'Sem conexão para consultar o CEP. Tente novamente.' : err.message;
+    }finally{ btn.disabled=false; }
+  };
+  const fin = $('#finish'); if(fin) fin.onclick = finalizar;
+}
+function finalizar(){
+  readForm();
+  const miss = [];
+  if(!cli.nome.trim()) miss.push('nome'); if(digits(cli.tel).length<10) miss.push('WhatsApp');
+  if(!cli.rua.trim()||!cli.num.trim()) miss.push('endereço'); if(!cli.cidade.trim()||cli.uf.length!==2) miss.push('cidade/UF');
+  if(miss.length){ toast('Preencha: '+miss.join(', ')); return; }
+  const f = calcFrete(cli.uf);
+  if(!f){ toast('UF inválida. Confira o endereço.'); return; }
+  frete = {...f,cep:digits(cli.cep)};
+  const lines = cartLines(), sub = subtotal(), total = sub+f.valor;
+  const msg = [
+    `🛍️ *NOVO PEDIDO — ${L.nome}*`,'',
+    '*Itens*',
+    ...lines.map(i=>`• ${i.qtd}x ${i.p.nome}${i.tam?` | Tam: ${i.tam}`:''}${i.cor?` | Cor: ${i.cor}`:''} — ${brl(i.p.preco*i.qtd)}`),'',
+    `Subtotal: ${brl(sub)}`,
+    `Frete (${f.regiao}, ${f.prazo}): ${f.valor===0?'Grátis':brl(f.valor)}`,
+    `*TOTAL: ${brl(total)}*`,'',
+    '*Cliente*',
+    `Nome: ${cli.nome}`,`WhatsApp: ${cli.tel}`,'',
+    '*Endereço de entrega*',
+    `${cli.rua}, ${cli.num}${cli.comp?' - '+cli.comp:''}`,
+    `${cli.bairro?cli.bairro+' - ':''}${cli.cidade}/${cli.uf}`,
+    cli.cep?`CEP: ${maskCEP(cli.cep)}`:'' ,'',
+    `Pagamento: ${cli.pag}`,
+    cli.obs?`Obs.: ${cli.obs}`:''
+  ].filter((l,i,a)=>!(l===''&&a[i-1]==='')).join('\n').trim();
+  const url = waLink(msg);
+  const w = window.open(url,'_blank','noopener');
+  if(!w) location.href = url;
+  toast('Abrindo o WhatsApp… envie a mensagem para concluir ✅');
+}
+
+/* ---------- overlay ---------- */
+let scrimFor = '';
+function openCart(){ closeAll(true); renderCart(); $('#drawer').classList.add('on'); $('#scrim').classList.add('on'); scrimFor='cart'; document.body.style.overflow='hidden'; }
+function closeAll(keep){
+  $('#drawer').classList.remove('on');
+  $('#modal').classList.remove('on');
+  if(keep!==true){ $('#scrim').classList.remove('on'); document.body.style.overflow=''; }
+}
+$('#scrim').onclick = ()=>closeAll();
+$('#cartBtn').onclick = openCart;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAll(); });
+let tt; function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('on'),3200); }
+
+/* ---------- init ---------- */
+$('#yr').textContent = new Date().getFullYear();
+$('#waFloat').href = waLink('Olá! Vim pelo site da Use Moda Clara.');
+document.title = L.nome+' — Moda Praia';
+buildNav(); updBadge(); route();
+})();
+</script>
+</body>
+</html>
