@@ -17,11 +17,3 @@ Catálogo online e loja virtual de moda praia com integração para pedidos via 
 - `dados.js`: Base de dados inicial dos produtos e configurações da loja.
 - `logo.png`: Identidade visual da marca.
 
-## 🌐 Como Publicar (GitHub Pages)
-
-Você pode publicar este site gratuitamente usando o **GitHub Pages**:
-
-1. Acesse o repositório no GitHub.
-2. Vá em **Settings** > **Pages**.
-3. Em **Branch**, selecione `main` e a pasta `/ (root)`.
-4. Clique em **Save**. Em alguns minutos o site estará disponível online!
