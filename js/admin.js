@@ -1,6 +1,6 @@
 /**
  * USE MODA CLARA — PAINEL ADMINISTRATIVO (ADMIN.JS)
- * Gerenciamento de produtos, categorias, frete, textos e exportação de dados.js.
+ * Gerenciamento na nuvem via Supabase com upload de fotos e publicação instantânea.
  */
 (function () {
   'use strict';
@@ -8,39 +8,103 @@
   const $ = (s, e = document) => e.querySelector(s);
   const $$ = (s, e = document) => [...e.querySelectorAll(s)];
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const KEY = 'umc_admin_draft_v1';
+  const KEY_DRAFT = 'umc_admin_draft_v2';
+  const KEY_AUTH = 'umc_admin_auth_v1';
+  const ADMIN_PASS = 'modaclara'; // Senha padrão de acesso
 
-  let D, dirty = false;
-  try {
-    const dr = localStorage.getItem(KEY);
-    if (dr) {
-      D = JSON.parse(dr);
-      dirty = true;
+  let D = null;
+  let dirty = false;
+  let tab = 'produtos';
+  let q = '';
+
+  /* --------------------------------------------------------------------------
+     01. Controle de Acesso (Senha)
+     -------------------------------------------------------------------------- */
+  function checkAuth() {
+    if (sessionStorage.getItem(KEY_AUTH) === 'true') {
+      $('#authOverlay').classList.remove('on');
+      initAdmin();
+    } else {
+      $('#authOverlay').classList.add('on');
+      $('#authPass').focus();
     }
-  } catch (e) {}
+  }
 
-  if (!D) D = JSON.parse(JSON.stringify(window.LOJA));
-  D.frete = D.frete || { regioes: {} };
-  D.textos = D.textos || {};
-  D.categorias = D.categorias || [];
-  D.produtos = D.produtos || [];
+  $('#authBtn').onclick = () => {
+    const val = $('#authPass').value.trim();
+    if (val === ADMIN_PASS) {
+      sessionStorage.setItem(KEY_AUTH, 'true');
+      $('#authOverlay').classList.remove('on');
+      initAdmin();
+    } else {
+      $('#authErr').style.display = 'block';
+      $('#authPass').value = '';
+      $('#authPass').focus();
+    }
+  };
 
-  let tab = 'produtos', q = '';
+  $('#authPass').onkeydown = e => {
+    if (e.key === 'Enter') $('#authBtn').click();
+  };
 
-  const persist = () => {
+  /* --------------------------------------------------------------------------
+     02. Carregamento dos Dados (Supabase ou Fallback)
+     -------------------------------------------------------------------------- */
+  async function initAdmin() {
+    $('#stat').innerHTML = '⏳ Carregando dados do site na nuvem…';
+
+    // 1. Tenta carregar do Supabase
+    if (window.sbClient) {
+      try {
+        const { data, error } = await window.sbClient
+          .from('loja_config')
+          .select('dados')
+          .eq('id', 1)
+          .single();
+        if (data && data.dados) {
+          D = data.dados;
+        }
+      } catch (err) {
+        console.warn('Erro ao carregar do Supabase:', err);
+      }
+    }
+
+    // 2. Se não carregou, tenta rascunho local ou dados.js
+    if (!D) {
+      try {
+        const dr = localStorage.getItem(KEY_DRAFT);
+        if (dr) {
+          D = JSON.parse(dr);
+          dirty = true;
+        }
+      } catch (e) {}
+    }
+    if (!D) D = JSON.parse(JSON.stringify(window.LOJA || {}));
+
+    D.frete = D.frete || { regioes: {} };
+    D.textos = D.textos || {};
+    D.categorias = D.categorias || [];
+    D.produtos = D.produtos || [];
+
+    status();
+    render();
+  }
+
+  const persistDraft = () => {
     dirty = true;
     try {
-      localStorage.setItem(KEY, JSON.stringify(D));
-    } catch (e) {
-      alert('Não consegui salvar o rascunho (fotos muito pesadas?). Baixe o arquivo agora para não perder.');
-    }
+      localStorage.setItem(KEY_DRAFT, JSON.stringify(D));
+    } catch (e) {}
     status();
   };
 
   function status() {
-    $('#stat').innerHTML = dirty
-      ? '<span class="dirty">● Alterações não publicadas.</span> Baixe o <b>dados.js</b> e envie para a hospedagem.'
-      : 'Tudo igual ao site publicado.';
+    const el = $('#stat');
+    if (dirty) {
+      el.innerHTML = '<span class="dirty">● Alterações pendentes.</span> Clique em <b>Salvar no Site</b> para atualizar a loja online.';
+    } else {
+      el.innerHTML = '<span class="saved">✔ Site atualizado e sincronizado na nuvem.</span>';
+    }
   }
 
   const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || ('c' + Date.now());
@@ -56,6 +120,7 @@
   };
 
   function render() {
+    if (!D) return;
     const m = $('#main');
     if (tab === 'produtos') m.innerHTML = vProdutos();
     if (tab === 'categorias') m.innerHTML = vCategorias();
@@ -127,9 +192,9 @@
           <label>Cores (separe por vírgula)<input id="f-cor" value="${esc((p.cores || []).join(', '))}" placeholder="Rosé, Areia"></label>
           <label>Descrição<textarea id="f-desc" rows="3">${esc(p.descricao)}</textarea></label>
           <div>
-            <div class="hint" style="margin-bottom:.4rem">FOTOS — a primeira é a foto principal. As imagens são reduzidas automaticamente.</div>
-            <div class="drop" id="drop">📷 Toque para escolher fotos<input type="file" id="f-file" accept="image/*" multiple hidden></div>
-            <div class="imgs">
+            <div class="hint" style="margin-bottom:.4rem">FOTOS — toque no botão abaixo para adicionar fotos direto do celular ou computador:</div>
+            <div class="drop" id="drop">📷 Toque para escolher fotos (upload automático para a nuvem)<input type="file" id="f-file" accept="image/*" multiple hidden></div>
+            <div class="imgs" id="f-imgs">
               ${(p.imagens || []).map((s, i) => `
                 <div class="im">
                   <img src="${s}" alt="">
@@ -145,7 +210,7 @@
           </div>
           <div class="acts">
             <button class="btn g" id="f-cancel">Cancelar</button>
-            <button class="btn p" id="f-save">Salvar peça</button>
+            <button class="btn p" id="f-save">Confirmar peça</button>
           </div>
         </div>
       `;
@@ -162,12 +227,40 @@
       };
 
       $('#drop').onclick = () => $('#f-file').click();
+
       $('#f-file').onchange = async e => {
         grab();
-        for (const f of e.target.files) {
+        const files = [...e.target.files];
+        if (!files.length) return;
+
+        const dropEl = $('#drop');
+        dropEl.classList.add('uploading');
+        dropEl.textContent = '⏳ Enviando fotos para a nuvem… aguarde…';
+
+        for (const file of files) {
           try {
-            p.imagens.push(await compress(f));
-          } catch (_) {}
+            // Upload direto para o Supabase Storage
+            if (window.sbClient) {
+              const ext = file.name.split('.').pop() || 'jpg';
+              const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${ext}`;
+              const { data: upData, error: upErr } = await window.sbClient.storage
+                .from('produtos')
+                .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+              if (upData) {
+                const publicUrl = `https://scqrviyzekjsignjtmmj.supabase.co/storage/v1/object/public/produtos/${fileName}`;
+                p.imagens.push(publicUrl);
+              } else {
+                throw upErr;
+              }
+            } else {
+              p.imagens.push(await compressLocal(file));
+            }
+          } catch (err) {
+            console.error('Falha no upload da foto:', err);
+            // Fallback para compressão local se falhar conexão
+            try { p.imagens.push(await compressLocal(file)); } catch (_) {}
+          }
         }
         draw();
       };
@@ -186,13 +279,14 @@
       });
 
       $('#f-cancel').onclick = closeOv;
+
       $('#f-save').onclick = () => {
         grab();
         if (!p.nome) { alert('Dê um nome para a peça.'); return; }
         if (!p.categoria) { alert('Crie uma categoria primeiro.'); return; }
         if (isNew) D.produtos.push(p);
         else D.produtos[D.produtos.findIndex(x => x.id === p.id)] = p;
-        persist();
+        persistDraft();
         closeOv();
         render();
       };
@@ -202,7 +296,7 @@
     $('#ov').classList.add('on');
   }
 
-  function compress(file) {
+  function compressLocal(file) {
     return new Promise((res, rej) => {
       const r = new FileReader();
       r.onerror = rej;
@@ -271,7 +365,7 @@
     return `
       <div class="card">
         <h2>Frete para o Brasil todo</h2>
-        <p class="hint">O cliente digita o CEP, o site descobre o estado e aplica o valor da região abaixo. Valor = tarifa da região + adicional por peça extra. São <b>estimativas suas</b> (não consulta os Correios em tempo real).</p>
+        <p class="hint">O cliente digita o CEP, o site descobre o estado e aplica o valor da região abaixo. Valor = tarifa da região + adicional por peça extra.</p>
         <div class="g3">
           <label>UF de origem (onde você envia)<input id="fr-uf" maxlength="2" value="${esc(F.origemUF || 'PB')}" style="text-transform:uppercase"></label>
           <label>Frete grátis acima de (R$) — 0 desliga<input id="fr-g" inputmode="decimal" value="${String(F.gratisAcima || 0).replace('.', ',')}"></label>
@@ -308,7 +402,7 @@
         <div class="stack">
           <div class="g2">${f('l-nome', 'Nome da loja', D.nome)}${f('l-slogan', 'Slogan', D.slogan)}</div>
           <div class="g2">${f('l-wa', 'WhatsApp que recebe os pedidos (com 55 + DDD)', D.whatsapp)}${f('l-ig', 'Instagram (sem @)', D.instagram)}</div>
-          <p class="hint">Exemplo de WhatsApp: 5583999998888 — somente números.</p>
+          <p class="hint">Exemplo de WhatsApp: 5583991836572 — somente números.</p>
         </div>
       </div>
       <div class="card">
@@ -345,15 +439,15 @@
       $$('[data-a]', m).forEach(b => b.onclick = () => {
         const id = b.dataset.id, p = D.produtos.find(x => x.id === id);
         if (b.dataset.a === 'ed') openForm(id);
-        if (b.dataset.a === 'so') { p.esgotado = !p.esgotado; persist(); render(); }
-        if (b.dataset.a === 'rm' && confirm('Excluir "' + p.nome + '"?')) { D.produtos = D.produtos.filter(x => x.id !== id); persist(); render(); }
+        if (b.dataset.a === 'so') { p.esgotado = !p.esgotado; persistDraft(); render(); }
+        if (b.dataset.a === 'rm' && confirm('Excluir "' + p.nome + '"?')) { D.produtos = D.produtos.filter(x => x.id !== id); persistDraft(); render(); }
       });
     }
 
     if (tab === 'categorias') {
       $$('[data-cn]', m).forEach(i => i.onchange = () => {
         const v = i.value.trim();
-        if (v) { D.categorias[+i.dataset.cn].nome = v; persist(); }
+        if (v) { D.categorias[+i.dataset.cn].nome = v; persistDraft(); }
       });
       $('#addC').onclick = () => {
         const v = $('#nc').value.trim();
@@ -361,7 +455,7 @@
         let id = slug(v);
         while (D.categorias.some(c => c.id === id)) id += '-2';
         D.categorias.push({ id, nome: v });
-        persist();
+        persistDraft();
         render();
       };
       $$('[data-a]', m).forEach(b => b.onclick = () => {
@@ -374,7 +468,7 @@
           if (!confirm('Excluir a categoria "' + c.nome + '"?')) return;
           D.categorias.splice(i, 1);
         }
-        persist();
+        persistDraft();
         render();
       });
     }
@@ -388,13 +482,13 @@
         for (const k of Object.keys(F.regioes)) n[k === old ? 'Local (' + uf + ')' : k] = F.regioes[k];
         F.regioes = n;
         F.origemUF = uf;
-        persist();
+        persistDraft();
         render();
       };
-      $('#fr-g').onchange = e => { F.gratisAcima = num(e.target.value); persist(); };
-      $('#fr-a').onchange = e => { F.adicionalPorPeca = num(e.target.value); persist(); };
-      $$('[data-rv]', m).forEach(i => i.onchange = () => { F.regioes[i.dataset.rv].valor = num(i.value); persist(); });
-      $$('[data-rp]', m).forEach(i => i.onchange = () => { F.regioes[i.dataset.rp].prazo = i.value; persist(); });
+      $('#fr-g').onchange = e => { F.gratisAcima = num(e.target.value); persistDraft(); };
+      $('#fr-a').onchange = e => { F.adicionalPorPeca = num(e.target.value); persistDraft(); };
+      $$('[data-rv]', m).forEach(i => i.onchange = () => { F.regioes[i.dataset.rv].valor = num(i.value); persistDraft(); });
+      $$('[data-rp]', m).forEach(i => i.onchange = () => { F.regioes[i.dataset.rp].prazo = i.value; persistDraft(); });
     }
 
     if (tab === 'loja') {
@@ -412,53 +506,74 @@
       };
       for (const id in map) {
         const el = $('#' + id);
-        el.onchange = () => { map[id](el.value); persist(); };
+        el.onchange = () => { map[id](el.value); persistDraft(); };
       }
     }
   }
 
   /* --------------------------------------------------------------------------
-     Exportação de dados.js e Ajuda
+     03. Publicar no Supabase (O botão mágico que sua amiga vai usar)
      -------------------------------------------------------------------------- */
-  $('#btnDown').onclick = () => {
-    const out = '/* USE MODA CLARA — dados da loja. Gerado pelo painel em ' + new Date().toLocaleString('pt-BR') + ' */\nwindow.LOJA = ' + JSON.stringify(D, null, 2) + ';\n';
+  $('#btnSaveCloud').onclick = async () => {
+    const btn = $('#btnSaveCloud');
+    btn.disabled = true;
+    btn.textContent = '⏳ Salvando no site…';
+
+    try {
+      if (!window.sbClient) throw new Error('Conexão com a nuvem não inicializada.');
+
+      const { error } = await window.sbClient
+        .from('loja_config')
+        .upsert({
+          id: 1,
+          dados: D,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+
+      dirty = false;
+      try { localStorage.removeItem(KEY_DRAFT); } catch (_) {}
+      status();
+      alert('🎉 Sucesso! As alterações já estão disponíveis online no site para todos os clientes!');
+    } catch (err) {
+      console.error(err);
+      alert('Erro ao salvar na nuvem: ' + (err.message || 'Verifique a conexão.'));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🚀 Salvar no Site';
+    }
+  };
+
+  /* --------------------------------------------------------------------------
+     04. Backup & Ajuda
+     -------------------------------------------------------------------------- */
+  $('#btnBackup').onclick = () => {
+    const out = '/* USE MODA CLARA — backup dos dados da loja em ' + new Date().toLocaleString('pt-BR') + ' */\nwindow.LOJA = ' + JSON.stringify(D, null, 2) + ';\n';
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([out], { type: 'text/javascript' }));
     a.download = 'dados.js';
     document.body.appendChild(a);
     a.click();
     a.remove();
-    dirty = false;
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    status();
-    alert('Pronto! Agora substitua o dados.js antigo pelo novo na hospedagem do site.');
-  };
-
-  $('#btnReset').onclick = () => {
-    if (!confirm('Descartar alterações e voltar ao que está no dados.js atual?')) return;
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    D = JSON.parse(JSON.stringify(window.LOJA));
-    dirty = false;
-    render();
   };
 
   $('#btnHelp').onclick = () => {
     $('#mod').innerHTML = `
-      <h2 style="font-size:1.8rem;margin-bottom:.8rem">Como publicar suas alterações</h2>
+      <h2 style="font-size:1.8rem;margin-bottom:.8rem">Como usar o Painel</h2>
       <div class="steps">
         <ol>
-          <li>Edite peças, preços, frete e textos neste painel.</li>
-          <li>Clique em <b>Baixar dados.js</b>.</li>
-          <li>Na hospedagem do site, substitua o arquivo <b>dados.js</b> pelo novo.</li>
-          <li>Pronto: o site já mostra as mudanças (atualize a página).</li>
+          <li><b>Adicionar ou editar peças:</b> Troque fotos, preços, tamanhos e cores na aba <i>Produtos</i>.</li>
+          <li><b>Fotos:</b> As fotos são enviadas automaticamente para a nuvem.</li>
+          <li><b>Publicar:</b> Quando terminar de editar, basta clicar no botão verde <b>"Salvar no Site"</b> no rodapé.</li>
+          <li><b>Pronto!</b> Os clientes já verão tudo atualizado no mesmo instante.</li>
         </ol>
       </div>
-      <p class="hint" style="margin-top:1rem">Guarde o <b>admin.html</b> só no seu computador/celular — não precisa subir ele para a hospedagem. Sem o <b>dados.js</b> junto na mesma pasta, o painel abre vazio.</p>
-      <div class="acts" style="margin-top:1rem"><button class="btn p" id="okh">Entendi</button></div>
+      <div class="acts" style="margin-top:1.4rem"><button class="btn p" id="okh">Entendi</button></div>
     `;
     $('#ov').classList.add('on');
     $('#okh').onclick = closeOv;
   };
 
-  render();
+  checkAuth();
 })();

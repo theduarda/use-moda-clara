@@ -8,7 +8,7 @@
   /* --------------------------------------------------------------------------
      01. Variáveis Globais e Utilitários
      -------------------------------------------------------------------------- */
-  const L = window.LOJA;
+  let L = window.LOJA || {};
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -60,7 +60,7 @@
     } catch (e) {}
   };
 
-  const cats = L.categorias;
+  let cats = L.categorias || [];
   const prod = id => L.produtos.find(p => p.id === id);
 
   const placeholder = p => {
@@ -807,12 +807,33 @@
   /* --------------------------------------------------------------------------
      10. Inicialização
      -------------------------------------------------------------------------- */
-  $('#logoMark').innerHTML = '<span class="logo-mark">M<i>C</i></span>';
-  $('#yr').textContent = new Date().getFullYear();
-  $('#waFloat').href = waLink('Olá! Vim pelo site da Use Moda Clara.');
-  document.title = L.nome + ' — Moda Praia';
+  async function init() {
+    if (window.sbClient) {
+      try {
+        const { data, error } = await window.sbClient
+          .from('loja_config')
+          .select('dados')
+          .eq('id', 1)
+          .single();
+        if (data && data.dados) {
+          window.LOJA = data.dados;
+          L = window.LOJA;
+          cats = L.categorias || [];
+        }
+      } catch (err) {
+        console.warn('Usando dados de dados.js como fallback:', err);
+      }
+    }
 
-  buildNav();
-  updBadge();
-  route();
+    $('#logoMark').innerHTML = '<span class="logo-mark">M<i>C</i></span>';
+    $('#yr').textContent = new Date().getFullYear();
+    $('#waFloat').href = waLink('Olá! Vim pelo site da Use Moda Clara.');
+    document.title = (L.nome || 'Use Moda Clara') + ' — Moda Praia';
+
+    buildNav();
+    updBadge();
+    route();
+  }
+
+  init();
 })();

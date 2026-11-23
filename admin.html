@@ -22,7 +22,7 @@
       <div class="top">
         <h1>Painel · <span>Use Moda Clara</span></h1>
         <div class="acts">
-          <button class="btn g s" id="btnHelp">Como publicar?</button>
+          <button class="btn g s" id="btnHelp">Ajuda</button>
         </div>
       </div>
       <div class="tabs" id="tabs">
@@ -40,20 +40,33 @@
   <!-- Barra Fixa Inferior com Status e Ações -->
   <div class="sticky">
     <div class="wrap">
-      <small id="stat">Suas alterações ficam salvas neste navegador como rascunho. Para publicar no site, baixe o arquivo e envie para a hospedagem.</small>
+      <small id="stat">Carregando…</small>
       <div class="acts">
-        <button class="btn d s" id="btnReset">Descartar rascunho</button>
-        <button class="btn p" id="btnDown">⬇ Baixar dados.js</button>
+        <button class="btn g s" id="btnBackup" title="Baixa uma cópia dos dados no seu computador">⬇ Backup</button>
+        <button class="btn success" id="btnSaveCloud">🚀 Salvar no Site</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal / Overlay de Formulários -->
+  <!-- Modal / Overlay de Edição de Produtos -->
   <div class="overlay" id="ov">
     <div class="mod" id="mod"></div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Modal de Proteção por Senha -->
+  <div class="overlay" id="authOverlay">
+    <div class="auth-box">
+      <h2>Painel da Loja</h2>
+      <p>Digite a senha para acessar o gerenciador:</p>
+      <input type="password" id="authPass" placeholder="Senha de acesso" autocomplete="current-password">
+      <p class="err" id="authErr">Senha incorreta. Tente novamente.</p>
+      <button class="btn p" id="authBtn" style="width:100%">Entrar no Painel</button>
+    </div>
+  </div>
+
+  <!-- Bibliotecas e Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
   <script src="dados.js"></script>
   <script src="js/admin.js"></script>
 </body>

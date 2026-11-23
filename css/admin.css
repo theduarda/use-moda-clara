@@ -10,6 +10,7 @@
   --sand: #b99a78;
   --rose2: #b9707a;
   --rose3: #9a5560;
+  --green: #25a55f;
   --white: #fffdf8;
   --grad: linear-gradient(135deg, #e2b0ab, #b9707a 55%, #9a5560);
 }
@@ -25,7 +26,7 @@ body {
   background: var(--cream);
   color: var(--ink);
   line-height: 1.5;
-  padding-bottom: 110px;
+  padding-bottom: 120px;
 }
 
 h1, h2, h3 {
@@ -99,6 +100,7 @@ header {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.7rem 1.2rem;
   border-radius: 99px;
@@ -110,6 +112,12 @@ header {
   background: var(--grad);
   color: #fff;
   box-shadow: 0 10px 22px -12px var(--rose3);
+}
+
+.btn.success {
+  background: #25a55f;
+  color: #fff;
+  box-shadow: 0 10px 22px -12px #25a55f;
 }
 
 .btn.g {
@@ -128,6 +136,12 @@ header {
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .card {
@@ -260,6 +274,7 @@ input:focus, select:focus, textarea:focus {
   position: fixed;
   inset: 0;
   background: rgba(60, 35, 28, 0.5);
+  backdrop-filter: blur(4px);
   z-index: 50;
   display: none;
   place-items: center;
@@ -329,6 +344,16 @@ input:focus, select:focus, textarea:focus {
   color: var(--brown);
   cursor: pointer;
   margin-bottom: 0.6rem;
+  transition: background 0.2s;
+}
+
+.drop:hover {
+  background: rgba(185, 154, 120, 0.15);
+}
+
+.drop.uploading {
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .chk {
@@ -372,7 +397,12 @@ input:focus, select:focus, textarea:focus {
 
 .dirty {
   color: #b23b4a;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.saved {
+  color: #25a55f;
+  font-weight: 600;
 }
 
 table {
@@ -404,6 +434,41 @@ th {
 
 .steps ol {
   margin: 0.5rem 0 0 1.2rem;
+}
+
+/* Modal de Login / Senha */
+.auth-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2.2rem;
+  width: min(400px, 92vw);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.auth-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-box p {
+  color: var(--sand);
+  font-size: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.auth-box input {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+
+.auth-box .err {
+  color: #b23b4a;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+  display: none;
 }
 
 @media (max-width: 640px) {
